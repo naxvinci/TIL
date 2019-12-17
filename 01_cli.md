@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CLI
 
 > 커맨드 라인 인터페이스
@@ -22,4 +23,30 @@
 - `git checkout master` : 현 상태로 돌아오기
 - `git remote add`  : 
 - `git push origin master` : 
+=======
+# CLI
+
+> 커맨드 라인 인터페이스
+
+## 터미널 명령어들
+
+- `ls` : 폴더 내부의 파일 & 폴더를 나열
+- `pwd`  : 현재 폴더 경로 출력
+- `mkdir`[폴더명] : 폴더 생성
+- `cd`[폴더명] : change directory 내가 있는 폴더를 변경
+- `tab`: 자동완성
+- `..` : 상위 폴더명
+- `git init` : 깃 시작. 이 때 .git이라는 숨김파일을 생성해냄
+- `ls -a` : 숨김 폴더까지 보기
+- `git status` : git의 상태 묻기
+- `touch` [파일명]: 파일 만들기
+- `rm` [파일명]: 파일 삭제
+- `git add`[파일명]  : 파일 추가... 버전 관리가 가능하도록 
+- `git commit -m` :
+- `git log` : 
+-  `git checkout`[commit 앞 5자리 코드] : 과거를 보러 가고 싶다!
+- `git checkout master` : 현 상태로 돌아오기
+- `git remote add`  : 
+- `git push origin master` : 
+>>>>>>> 4f8dfb59ff663cc5814cd957cd3b5e5637edebe8
 - 
