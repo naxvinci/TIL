@@ -21,7 +21,7 @@
 
 ### (2) Commit을 위한 Staging : `git add`
 
-- 현재 코드 상태의 스냅샷을 찍기 위한 파일 선택 (==Staging Area에 파일 추가)
+- 현재 코드 상태의 스냅샷을 찍기 위한 파일 선택 (==Staging Area에 파일 추가) 
 
   ```shell
   $ git add [파일이름] # .은 모든 변경 사항을 staging area로 올림
