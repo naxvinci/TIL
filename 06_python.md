@@ -1,18 +1,15 @@
-vscode에서 터미널 - 뉴터미널 
+#### VSCODE에서 터미널 생성하기
 
-git bash로 바꾸고 완전히 kill terminal 후 다시 열어야 한다
-
-
-
-ctrl shft p 를 통해 명령어 직접 입력으로 설정도 가능하다 
-
-git init && git add . -동시 명령. 오타나면 ㅈ된다
+1. VSCODE - Terminal - New Terminal
+2. select default shell에서 `1:  bash`로 바꿔준다
+3. VSCODE는 환경 변경에 즉각 대응이 안되므로 완전히 kill terminal 후 프로그램을 다시 실행해주어야 한다
+4. `ctrl +shft+p`를 통해 명령어 직접 입력으로도 설정이 가능하다
 
 ---
 
 # Python 기초
 
-Life is short. You need Python. - Bruce Eckel
+> *Life is short. You need Python. - Bruce Eckel*
 
 1. 쉽다
 2. 많은 사람들이 사용한다
@@ -24,19 +21,29 @@ Life is short. You need Python. - Bruce Eckel
 
 
 
-#### 프로그래밍 언어 : 3형식
+#### * 프로그래밍 언어 : 3형식
 
 1. 저장
 2. 조건(if)
 3. 반복(while)
 
-
-
-시작하기 전에 
+#### * 파이썬에서 주의해야 할 3가지
 
 1. 대소문자
 2. 띄어쓰기
 3. 스펠링
+
+### Python 설치하기
+
+1.  git bash 터미널에서 `python --version` 
+
+   : 파이썬이 설치되어 있는지 확인
+
+2. 파이썬 홈페이지에 들어가 Download
+
+   - 이 때 3.8.0 버전의 64비트인지 확인할 것
+
+![image-20191218152500021](06_python.assets/image-20191218152500021.png)
 
 
 
@@ -64,20 +71,13 @@ Life is short. You need Python. - Bruce Eckel
 1. True, False 단 두가지. 앞글자 대문자
 2. 조건/반복에 사용된다.
 
+### 예제
 
+`code python_basic.py `로 파일 생성
 
-터미널에서 code python_basic.py 
+#### 1) 변수 선언
 
-python --version : 깔려있는지 확인
-
-![image-20191218152500021](01_Python.assets/image-20191218152500021.png)
-
-
-
-
-![image-20191218152751371](01_Python.assets/image-20191218152751371.png)
-
-가운데꺼로 깔아주자
+- 변수를 바로 선언 가능. `print`로 바로 출력 가능
 
 ```python
 number = 123
@@ -89,7 +89,7 @@ print(number_three)
 print(number, number_two, number_three)
 ```
 
-출력 결과
+- 출력 결과
 
 ```shell
 $ python python_basic.py
@@ -97,11 +97,13 @@ $ python python_basic.py
 -456
 7.89
 123 -456 7.89
-
-
 ```
 
-파이썬
+> JAVA와는 달리 변수를 선언 할 때 string , int 등을 나눠 선언 할 필요가 없다 
+
+#### 2) 불리언
+
+- `print`의 다양한 방식
 
 
 ```python
@@ -116,7 +118,7 @@ e = False
 print(d, e, type(d), type(e))
 ```
 
-출력결과
+- 출력결과
 
 ```shell
 가나다 123 123 123
@@ -124,17 +126,15 @@ print(d, e, type(d), type(e))
 True False <class 'bool'> <class 'bool'>
 ```
 
+> 불리언을 선언 할 때도 `boolean`으로 선언할 필요 없다
+>
+> 주석처리는 #
 
 
 
+#### 3) List 
 
-
-
-주석처리는 #
-
-
-
-python python_basic.py
+- 자바에서의 array와 비슷한 개념
 
 ```python
 array = [1,2,3,4,5,6,"넷", "다섯", "여섯", True]
@@ -144,23 +144,21 @@ print(array[4:])
 print(array[-1])
 ```
 
-리스트에서 슬라이싱할때 대괄호
+>  리스트에서 슬라이싱할때에는 대괄호를 사용한다
 
-0번째부터 2번째까지 찍고 싶으면
+- 리스트의 0번째부터 2번째까지 찍고 싶으면
 
 ```python
 print(array[0:3])
 ```
 
-음수의 경우 마지막 숫자를 이야기하는 것임
+- 음수의 경우 마지막 숫자에서부터를 의미한다
 
 ```python
 print(array[-1])
 ```
 
-
-
-출력결과
+- 출력결과
 
 ```shell
 $ python array.py
@@ -170,13 +168,11 @@ $ python array.py
 True
 ```
 
+#### 4) Dictionary
 
+>  궁극의 박스 dictionary
 
-
-
-3) 딕셔너리
-
-궁극의 박스 dictionary
+- Dictionary의 활용
 
 ```python
 dust = {'영등포구' : 50, "강남구" : 40}
@@ -185,7 +181,7 @@ dust_two = dict(영등포구 = 50)
 print(dust_two)
 ```
 
-딕셔너리활용
+- 출력 결과
 
 ```shell
 $ python array.py
@@ -193,9 +189,13 @@ $ python array.py
 {'영등포구': 50}
 ```
 
-중괄호로 만들땐 키값은 반드시 string이어야 한다. 따옴표 있어야 한다.
+> 중괄호로 만들땐 키값은 반드시 string이어야 하고, 따옴표도 있어야 한다.
 
-함수 호출 형식으로 딕셔너리 만들때는 따옴표 없이 한다
+> 함수 호출 형식으로 Dictionary를 만들 때는 따옴표 없이 한다.
+
+
+
+#### 5) random
 
 
 
@@ -334,26 +334,6 @@ $ python while_for.py
 8
 9
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

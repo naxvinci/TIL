@@ -33,8 +33,9 @@
 - `git commit -m "커밋 네임"` : 커밋 등록
 - `git log` :  깃 로그 확인
 -  `git log --oneline` : 한줄로 로그를 보여주기
-- `git push origin master` :  오리진 아니어도 됨
-- `git pull origin master` : 
+- `git push origin master` : 깃 허브에 파일을 푸시
+- `git pull origin master` : 깃 허브에서 파일을 풀
+- `git init&&git add` : 동시 명령. 오타나면 망하니 주의
 
 
 
