@@ -186,13 +186,9 @@ bj
 
 #### 1) flask 설치 및 환경 설정
 
-venv 다시 실행하고
+- `venv` 다시 실행하고 `pip install flask`
 
-install flask
-
-
-
-hello.py를 만들어서 아래 내용 ㄱㄱ
+- hello.py를 만들어서 아래 내용ㄱㄱ
 
 ```python
 from flask import Flask, escape, request
@@ -205,7 +201,7 @@ def hello():
     return f'Hello, {escape(name)}!'
 ```
 
-bash 창에 아래 첫 줄을 입력하여 실행
+- bash 창에 아래 첫 줄을 입력하여 실행
 
 ```shell
 $ env FLASK_APP=hello.py flask run
@@ -213,9 +209,9 @@ $ env FLASK_APP=hello.py flask run
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
-http://127.0.0.1:5000/ 주소를 크롬 창에 입력
+- http://127.0.0.1:5000/ 주소를 크롬 창에 입력
 
-여기에 추가로
+- 여기에 추가로 아래 내용을 추가해서 저장
 
 ```python
 from flask import Flask, escape, request
@@ -232,9 +228,7 @@ if __name__== "__main__":
 
 ```
 
-이걸 추가해서 저장
-
-그럼 이걸로 실행이 가능해지게 된다
+- 그럼 이제 `python hello.py`로 실행이 가능해지게 된다
 
 ```shell
 student@M15033 MINGW64 ~/python/flask (master)
@@ -251,15 +245,15 @@ $ python hello.py
 127.0.0.1 - - [19/Dec/2019 13:30:38] "GET / HTTP/1.1" 200 -
 ```
 
+
+
 ### 5) Flask 활용 예제
 
 #### 5) - 1.  앱라우트로 웹에 출력하기
 
-@app.route('/hi') 
+- `@app.route('/hi') ` : 슬래시 뒤 쪽에 원하는 링크명??? 을 쓴다.
 
-슬래시 뒤 쪽에 원하는 걸 쓰고
-
-해당 페이지에 함수 `def 함수이름()`를 작성
+- 함수 `def 함수이름()`를 작성
 
 ```python
 from flask import Flask, escape, request, render_template
@@ -275,11 +269,18 @@ def hello():
 def hi():
     name = "박나은"
     return render_template('hi.html', html_name = name)
+
+if __name__== ("__main__"):
+    app.run(debug=True)
 ```
 
-> `render_template()내에 좌측은 html에 넘겨줄 변수명, 우측은 파이썬 내에서 지정한 변수명을 적어준다.
+> `render_template()`내에서 
+>
+> **좌측은 html에 넘겨줄 변수명**, 
+>
+> **우측은 파이썬 내에서 지정한 변수명**을 적어준다.
 
-그리고 templates 폴더 내에 hi.html 파일을 생성 
+- templates 폴더 내에 hi.html 파일을 생성 
 
 ```html
 <!DOCTYPE html>
@@ -306,9 +307,11 @@ def hi():
 
 > 파이썬에서 넘어온 변수라는 것을 알려주기 위해 중괄호 두개로 감싸주어야 한다
 
+
+
 #### 5) - 2.  변수 두개를 넘겨주는 경우
 
-- 쉼표로 구분하면 됨
+- 변수를 넘겨주는 `render_template` 내에서 쉼표로 구분하여 추가해 넣으면 된다.
 
 ```python
 from flask import Flask, escape, request, render_template
@@ -319,14 +322,18 @@ app = Flask(__name__)
 def cube(num):
     def_num = num**3
     return render_template('num3.html', html_name = def_num, num = num)
+
+if __name__== ("__main__"):
+    app.run(debug=True)
 ```
 
 > `<int:num>` 숫자일 때만 작동하도록 지정
 
-html 파일을 생성, num 변수와 html_name 변수를 함께 넘겨준다.
+- html 파일을 생성
+- `num` 변수와 `html_name` 변수를 함께 넘겨준다.
 
 ```html
-<h1>{{num}}의 3제곱은<br> {{html_name}}입니다</h1>
+<h1>{{num}}의 3제곱은<br>{{html_name}}입니다</h1>
 ```
 
 
@@ -340,6 +347,9 @@ from flask import Flask, escape, request, render_template
 def fstring():
     fstring = "박나은"
     return f"제 이름은 {fstring} 입니다."
+
+if __name__== ("__main__"):
+    app.run(debug=True)
 ```
 
 문자열의 형태를 파기하지 않고 한 줄로 사용할 수 있게 해준다
@@ -350,6 +360,8 @@ def fstring():
 
 #### 5) -4. 랜덤으로 출력하기
 
+- random 함수를 활용해서 값을 뽑는다
+
 ```python
 from flask import Flask, escape, request, render_template
 import random
@@ -359,6 +371,9 @@ def dinner():
     menu = ['삼각김밥', '컵라면', '스테이크', '마라탕', '훠궈']
     dinner = random.choice(menu)
     return render_template('dinner.html', dinner = dinner)
+
+if __name__== ("__main__"):
+    app.run(debug=True)
 ```
 
 html 파일에서는  요런식으로 출력
@@ -371,7 +386,7 @@ html 파일에서는  요런식으로 출력
 
 #### 5) -5.이미지까지 함께 출력하기
 
-ㅇㄹㄴ
+-  `img_url = menu_img[dinner]`을 통해 Dictionary의 어느 항목을 말하는지 지정
 
 ```python
 @app.route('/dinner')
@@ -385,20 +400,17 @@ def dinner():
                 '훠궈' : 'https://mp-seoul-image-production-s3.mangoplate.com/1250135_1547430500643161.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80'}
     img_url = menu_img[dinner]
 
-
     return render_template('dinner.html', dinner = dinner, img_url = img_url)
 ```
 
-html을 만들어서
+>  html을 만들어서 이미지를 삽입
 
 ```html
     <h1>오늘 저녁은 {{dinner}} 입니다.</h1>
     <img src="{{img_url}}" alt="{{dinner}}" width="400">
 ```
 
-> alt는 사진이 뜨지 않을 때 그 사진이 무엇인지를 알려줄 기능이다. 시각장애인에게 도움이 될 수 있다.
->
-> 
+> `alt`는 사진이 뜨지 않을 때 그 사진이 무엇인지를 알려줄 기능이다. 시각장애인에게 도움이 될 수 있다.
 
 ![image-20191219153145006](08_python2.assets/image-20191219153145006.png)
 
@@ -413,6 +425,9 @@ from flask import Flask, escape, request, render_template
 def movies():
     movies = ['조커', '겨울왕국2', '터미네이터', '어벤져스']
     return render_template('movies.html', movies = movies)
+
+if __name__== ("__main__"):
+    app.run(debug=True)
 ```
 
 html만들기
@@ -447,6 +462,98 @@ html에서 for문과 if문을 적용하는 방법 {% %}
 
 
 rendertemplate을 쓰면 {를 쓰는 순간 부터 파이썬. %쓰는 순간부터 문법이라 인식. 이 때 중간에서 주석을 쓰고 싶으면 {# #}로 쓰면 된다.
+
+
+
+#### 5) -7. Ping Pong 예제
+
+
+
+```python
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route('/ping')
+def ping():
+    return render_template('ping.html')
+
+@app.route('/pong')
+def pong():
+    data = request.args.get('keyword')
+    return render_template('pong.html', data = data)
+
+@app.route('/naver')
+def naver():
+    return render_template('naver.html')
+
+
+if __name__== ("__main__"):
+    app.run(debug=True)
+```
+
+> ping. html 문서에서 키값을 리퀘스트해서 가져오기 `data = request.args.get('keyword')` 한 후, data 변수로 pong.html로 보내준다.
+
+
+
+ping.html
+
+```html
+    <h1>Here is Ping!!</h1>
+    <form action="/pong">
+        <input type="text" name="keyword">
+        <input type="submit">
+```
+
+> ping 에서 키워드를 입력하면 `form action`을 통해 `/pong`으로 이동한다
+
+pong.html
+
+```html
+    <h1>여기는 Pong입니다!!!</h1>
+    {{data}}
+```
+
+> pong에서 파이썬에서 데려온 `data`를 출력
+
+
+
+#### 5) -8. OP.GG 예제
+
+> op.gg에 전적 검색을 하고 키값을 크롤링해서 가져온다
+
+```python
+from flask import Flask, escape, request, render_template
+from bs4 import BeautifulSoup
+import requests
+
+app = Flask(__name__)
+
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
+@app.route('/opgg')
+def opgg():
+    userName = request.args.get('userName')
+    url = f"http://www.op.gg/summoner/userName={userName}"
+    req = requests.get(url).text
+    data = BeautifulSoup(req, 'html.parser')
+    tier = data.select_one('#SummonerLayoutContent > div.tabItem.Content.SummonerLayoutContent.summonerLayout-summary > div.SideContent > div.TierBox.Box > div > div.TierRankInfo > div.TierRank')
+    win = data.select_one('#SummonerLayoutContent > div.tabItem.Content.SummonerLayoutContent.summonerLayout-summary > div.SideContent > div.TierBox.Box > div > div.TierRankInfo > div.TierInfo > span.WinLose > span.wins')
+    return render_template('opgg.html', userName = userName, url = url, tier = tier.text, win = win.text)
+
+if __name__== "__main__": 
+    app.run(debug=True)
+
+```
+
+> fstring을 사용하여 리퀘스트 해서 가져온 값을 바로 입력 가능하게 만든다. 
+>
+> BeautifulSoup을 통해 html에서 가져온 값을 parsing
+>
+> `.select_one()` 함수로 op.gg 페이지의 값을 긁어온다.
+>
+> + text만 남길 수 있도록 `render_plate`내의 파이썬 값에 `.text`를 붙여준다.
 
 
 
