@@ -1,4 +1,6 @@
-# 3) 연산자
+# 자바 3 연산자
+
+연산자 사용
 
 ## 연산자 종류
 
@@ -95,6 +97,115 @@ public class Exam03_03 {
 	}
 }
 ```
+
+
+
+
+
+```java
+int num = 456;
+
+		System.out.println((int) (num / 100 * 100)); // 나누기, 곱하기 연산자 이용
+```
+
+- num / 100을 한 값도 int 값으로 나오기 때문에 4가 된다.
+- 거기서 100을 다시 곱하면 400... 매 연산마다 int값이 적용되나보다.
+
+
+
+### Scanner를 통해 값을 받아 boolean으로 참거짓판별하기
+
+```java
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("2자리수 정수 입력(10~99)>>");
+		int n = scanner.nextInt();
+		int ten = n / 10; // 10의 자리 수를 저장할 변수
+		int one = n % 10; // 1의 자리 수를 저장할 변수
+		boolean isMatch = false; // 두 자리 수 비교 값을 저장할 변수
+		/* ten 변수에 10의 자리 수 대입 */
+		/* one 변수에 1의 자리 수 대입 */
+		/* isMatch 변수에 두 개의 자리 수 비교 값 저장 */
+		
+		one = n % 10;
+		isMatch = ten == one;
+		System.out.println(isMatch);
+		scanner.close();
+```
+
+- 변수 선언에서만 Literal을 사용하고 그 이후 변수에서는 Literal을 선언하지 않는다... 선언하니까 오류 뜸
+- boolean도 변수로 바로 사용 `isMatch = ten == one;` 이렇게 써도 돼. 어색한데 맞음 ㅜ
+
+### 제시된 숫자의 각 자리 합 구하기
+
+```java
+		int num = 12345;
+
+		int num1 = num % 10;
+		num = num / 10;
+
+		int num2 = num % 10;
+		num = num / 10;
+
+		int num3 = num % 10;
+		num = num / 10;
+
+		int num4 = num % 10;
+		num = num / 10;
+
+		int num5 = num % 10;
+		num = num / 10;
+
+		// 코드 작성 (% 연산자)
+
+		int total = num1 + num2 + num3 + num4 + num5;
+		System.out.println("각 자리 숫자의 합 : " + total);
+```
+
+- 나머지(%) 및 나누기(/) 연산자를 이용하기
+  - 중간 중간 `num = num / 10을 통해 자릿수를 미리 줄여주면 더 깔끔한 코드를 작성할 수 있다.
+
+### 삼항연산자
+
+(조건식) ? 식1 : 식2
+
+```java
+import java.util.Scanner;
+
+public class self1 {
+	 public static void main(String[] args) {
+		 int score = 0;
+
+		 System.out.print("숫자 입력 > ");
+
+		 Scanner scan = new Scanner(System.in);
+		 score = scan.nextInt();
+
+		 char grade = score >= 90 ? 'A' : (score >= 80 ? 'B' : 'C') ;
+
+		 System.out.println(grade);
+
+		 scan.close();
+
+	 }
+	}
+```
+
+- 삼항 연산자 내에 삼항 연산자를 또 사용할 수도 있다
+
+
+
+### 아스키코드를 활용하여 대문자를 소문자로 변경
+
+```java
+	    char ch = 'T';
+		char lowerCase = (ch >= 'A' && ch <= 'Z') ? ((char) (ch + 32)) : ch;
+		System.out.println("ch : " + ch);
+		System.out.println("ch to lowerCase : " + lowerCase);
+```
+
+- 어차피 컴퓨터는 아스키코드로서 크고작음을 판별하기 때문에 굳이 ch를 int로 형변환해서 비교할 필요 없다. 
+- `ch >= 65 && ch <= 90`이따위로 쓰면 인식이 안된다.
+- 근데 왜 또 뒤에서는 (char)로 형변환 해줘야 하는겨? 
 
 
 
