@@ -1,3 +1,5 @@
+
+
 # Spring Boot
 
 ### 스프링부트 다운 받기
@@ -214,7 +216,232 @@ build.gradle 파일 내에
 
 클라이언트가 요청한 것에 대해 응답을 해주는 형태
 
+- JSON
+  - **map**, array, **list**, object 등
+  - 이 때 `@ResponseBody`를 통해야 한다. 이걸 쓰지 않으면 html 파일을 찾아가려함
+- HTML
+  - string 형태
 
 
 
+### restlet client
+
+http method에는 post, get, put, delete가 있는데 post와 get 이외의 것을 test 해보기 위해서는 restlet client 플러그인이 필요하다.
+
+
+
+|         결과          | 상태코드 |              설명               |
+| :-------------------: | :------: | :-----------------------------: |
+|        Success        |   200    |      요청에 대해 정상 응답      |
+|      Bad request      |   400    |  파라미터 등 요구 조건 미충족   |
+|       Forbidden       |   403    |            접근 거부            |
+|       Not Found       |   404    | 잘못되었거나 존재하지 않는 주소 |
+|  Method Not Allowed   |   405    |      사용 불가 메소드 사용      |
+| Internal Server Error |   500    |    서버의 프로그램 오류 발생    |
+
+
+
+요청처리의 여러 방식을 확인해보자
+
+쥰나 뭐라는건지 모르겠어. 
+
+http://ggoreb.com/http/method_form.jsp
+
+get으로 호출 할 때는 잘 나오는데 post방식으로는 에러가 뜬다. 브라우저는 결국 100퍼센트 get방식만 사용된다는거임. post 등의 방식은 일반적인 방법으로는 보기어렵다. 이때 필요한게 restlet client다!!!!
+
+
+
+주소 하나로 메소드를 바꾸면서 바꿔치기 로그인
+
+get / board / 1
+
+delete / board / 1
+
+rest방식은 요즘 주소 하나에 메소드 분리를 통해 간결하게 사용
+
+rest방식이 잘 되어있는 사이트
+
+okky.kr
+
+잘 안되어있는 사이트
+
+tacademy.skplanet.com
+
+### 요청처리
+
+- RequestParam (편리함) : 혼자 혹은 친구들끼리 
+- ModelAttribute (명확함) : 회사에서 선호하는 방식
+
+클라이언트가 값을 주는데 어떤 방식으로 주느냐
+
+받는 쪽에서의 이야기
+
+
+
+java진영에서 쓰는 request의 정체 - HttpServletRequest
+
+이걸 spring이 알아서 가공해줘서 사용하게 된다.request.getParameter("pageNum"); 이게 정석적인 방법. 전통적. 오래된 방식
+
+
+
+@RequestParam("key1") String key1,
+
+string에는 기본 리터럴 다 들어갈 수 있다.
+
+
+
+```java
+	@GetMapping("req/param1")
+	public String param1(
+	@RequestParam("key1") String key1,
+	@RequestParam("key2") String key2) {
+	return key1 + ", " + key2;
+	}
+```
+
+
+
+http://localhost:8080/req/param1?key1=a&key2=1
+
+이런 식으로 key를 넣어주면 출력이 된다. 추가적인 정보들
+
+
+
+두번째 방식은 parameter 이름이 빠져있다. key를 지정하지 않고 map으로 받아준다. 이게 더 편해서 많이 쓴다.
+
+```java
+	@GetMapping("req/param2")
+	public String param2(
+	@RequestParam Map<String, Object> map) {
+	return map.toString();
+	}
+```
+
+
+
+http://localhost:8080/req/param2?a=123&b=456&key2=1
+
+이렇게 키를 임의로 써 넣을 수 있다. 
+
+
+
+### @RequestParam
+
+```html
+<form method='post' action="/login">
+	ID : <input type= "text" name ="id"><br>
+	PW : <input type= "text" name ="pw"><br>
+		<input type = "submit">
+	</form>
+```
+
+
+
+
+
+```
+package com.naxvinci.basic.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class LoginController {
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	@PostMapping("/login")
+	public String loginPost(
+			@RequestParam("id") String id,
+			@RequestParam("pw") String pw) {
+		
+		String dbId = "boot";
+		String dbPw = "1234";
+		
+		if(dbId.equals(id) && dbPw.equals(pw)) {
+			return "로그인 성공";
+		}
+		return "로그인 실패";
+	}
+}
+```
+
+
+
+@PathVariable -경로 자체를 변수로 쓰는 방식
+
+
+
+### @ModelAttribute
+
+
+
+```
+	@GetMapping("req/model")
+	public String model(
+	@ModelAttribute Member member) {
+	return member.toString();
+	}
+```
+
+
+
+http://localhost:8080/req/model?name=11&userId=22&userPassword=33
+
+
+
+### ThymeLeaf
+
+신기술임
+
+```java
+package com.naxvinci.basic.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class Welcome {
+	@GetMapping("/welcome")
+	public String welcome(Model model) {
+		List<String> list = new ArrayList<>();
+		list.add("a");
+		list.add("b");
+		model.addAttribute("key1", list);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("a", "value a");
+		map.put("b", "value b");
+		model.addAttribute("key2", map);
+		
+		return "welcome";
+	}
+
+}
+```
+
+welcome.html
+
+```html
+[[${key1}]]
+<br>
+[[${key1[0]}]]
+<br>
+[[${key2}]]
+<br>
+[[${key2.a}]]
+<br>
+[[${key2['b']}]]
+```
+
+스프링부트에서는 타임리프를 쓴다. 
 
