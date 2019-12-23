@@ -24,7 +24,7 @@ spring tool suite4
 
 https://projectlombok.org/all-versions
 
-power shell에서 java -jar lombok 하고 탭
+power shell에서 java -jar lombok 하고 tab키
 
 install 창이 나오면 경로를 설정
 
@@ -445,3 +445,62 @@ welcome.html
 
 스프링부트에서는 타임리프를 쓴다. 
 
+타임리프에서 권장하는 방식
+
+```html
+아이디:<span th:text="${user.userId}"></span><br>
+이름:<span th:text="${user.userName}"></span><br>
+나이:<span th:text="${user.userAge}"></span><br>
+```
+
+
+
+th:text에 생기는 노란 줄을 없애려면 아래 코드를 상단에
+
+```html
+<html xmlns:th="http://www.thymeleaf.org">
+```
+
+
+
+#### 페이지 만들기
+
+계산하기
+
+```
+	 @GetMapping("pagination")
+	 public String pagination(Model model, @RequestParam(defaultValue="1") int page) {
+	 int startPage = (page - 1) / 10 * 10 + 1;
+	 int endPage = startPage + 9;
+	 model.addAttribute("startPage", startPage);
+	 model.addAttribute("endPage", endPage);
+	 model.addAttribute("page", page);
+	 return "pagination";
+	 }
+```
+
+model은 전달해주는 매개체 역할을 한다. 결국 클라이언트에게 작업 결과를 전달해주려면 html에게 전달해줘야 한다능
+
+
+
+model을 쓰지않으면 파라미터에 뭘 넣든 변화가 생겨나지 않는다
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block
+		th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+		<span th:if="${page} == ${pageNumber}" th:text="${pageNumber}"
+			style="font-weight: bold"></span>
+		<span th:unless="${page} == ${pageNumber}" th:text="${pageNumber}"></span>
+	</th:block>
+</body>
+</html>
+```
+
+![image-20191223173945585](01springboot.assets/image-20191223173945585.png)
