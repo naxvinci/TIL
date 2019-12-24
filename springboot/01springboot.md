@@ -216,6 +216,8 @@ build.gradle 파일 내에
 
 클라이언트가 요청한 것에 대해 응답을 해주는 형태
 
+@ResponseBody 또는 @RestController
+
 - JSON
   - **map**, array, **list**, object 등
   - 이 때 `@ResponseBody`를 통해야 한다. 이걸 쓰지 않으면 html 파일을 찾아가려함
@@ -395,7 +397,7 @@ http://localhost:8080/req/model?name=11&userId=22&userPassword=33
 
 ### ThymeLeaf
 
-신기술임
+신기술임. html template
 
 ```java
 package com.naxvinci.basic.controller;
