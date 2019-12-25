@@ -33,6 +33,8 @@
 - `shft + ctrl + c` 혹은 `ctrl + /` : 주석 처리
 - `ctrl + F11` : 콘솔창에 출력
 - `shft + ctrl + f` :  소스코드 정렬
+- `ctrl+H` : search
+- `ctrl + y ` : 되돌리기에서 돌아오기
 
 
 
