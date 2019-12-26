@@ -176,3 +176,270 @@ public class UploadController {
 
 - result += oName + "\n"; 는 result에 result와 oName을 더한 값을 넣으라는 것이당
 
+
+
+### File Download
+
+
+
+ResponseEntity : Respond할 때 이 라이브러리를 사용한다
+
+ ResponseEntity.ok() : 잘 들어갔다~ 200이 찍힌다
+
+.contentLength(file.length()) : 빼먹을 경우 몇개중에 몇개를 받았다... 파일 길이를 명시하지 못하게 된다.
+
+```java
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class DownloadController {
+	
+	@GetMapping("/download")
+	public ResponseEntity<Resource> download() throws Exception {
+		File file = new File("C:\\dev\\html/robin-a.jpg");
+		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+		return ResponseEntity.ok()
+				.header("content-disposition", "filename=" + URLEncoder.encode(file.getName(), "utf-8"))
+				.contentLength(file.length()).contentType(MediaType.parseMediaType("application/octet-stream"))
+				.body(resource);
+	}
+}
+```
+
+- URLEncoder.encode(file.getName(), "utf-8")) : 겟네임 내부에 저장될 때의 이름을 설정할 수 있다
+- 저장할 때 a_20191226133709.txt 처럼 이상하게 적힌 파일명(중복을 막아주기 위해 만들어진)이랑 a.txt라는 기존 파일명 둘다 데이터베이스에 저장해두고 다운받을 때는 기존 파일명으로 출력되도록 하는 것이 좋다
+
+이때 바로 다운이 안되고 출력만 되길 바라면 
+
+```
+.contentType(MediaType.parseMediaType("image/jpeg"))
+```
+
+- 이미지의 경우 이렇게 변경
+- audio 등으로도 변경이 가능하다
+- octet-stream을 사용하면 무조건 다운실행임
+- content-type 내에 들어가는 것들을 mime-type이라고 한다.
+
+
+
+### RestTemplate
+
+특별한 기능은 아니고 자바에서 어디어디 웹사이트 주소를 불러서 그녀석을 문자열로 가져와 파싱해서 쓰던거...와 비슷하게 스프링에서 쓸 수있게 만들어둔 라이브러라
+
+- RestTemplate을 생성한다. (new)
+- 스프링이 미리 만들어놓고 끌어다 쓰는게 아니기 때문에 생성해서 써야 하는거임. 
+
+
+
+- Spring(크은 공장 같은)이라는 프로그램이 구동이 되면 굉장히 다양하고 많은 class들이 함께 구동이 된다. 많이 사용되는 것들. 이것들을 마음대로 갖다 쓸 수 있다. 뭘써서? -> @Autowired를 통해서 (완전깡패)
+
+- 하지만 RestTemplate은 Autowired를 통해 가져올 수 없다. 그래서 new를 쓰는거임
+
+
+
+#### getForObject / getString
+
+- 자바에서는 오브젝트가 아니라 map이라고 매칭시켜 쓴다
+
+
+
+```java
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class RestTemplateController {
+	@GetMapping("/getString")
+	public Map getString() {
+		RestTemplate rt = new RestTemplate();
+		String result1 = rt.getForObject("http://ggoreb.com/http/json1.jsp", String.class);
+		Map result2 = rt.getForObject("http://ggoreb.com/http/json1.jsp", Map.class);
+		return result2;
+	}
+}
+```
+
+- 지정하는 클래스 형태에 따라 ... 많은 부분들을 눈에 안보이게 숨겨놨다가...
+- 실제로는 string~으로 시작되는 라인은 안쓰고 map으로 시작되는 라인으로 인해 구동되는 것이다
+- 이걸 안쓰고 가져오면 걍 텍스트 형태가 되는데! 쓰고 가져오면 제이슨 형태가 된다! 뭐지 뭐가 다르지
+
+
+
+### API 굉장히 쉽게 쓰기
+
+와우 한장만에!
+
+
+
+
+
+가져다 쓰는 것에 부담느끼지마라! 
+
+이걸 어떻게 변화시켜서 어떻게 대입해서 원하는 결과를 낼지 그 부분에 집중하자
+
+도구를 잘 쓰는 것도 실력이다! - 김남현 쓰앵님-
+
+
+
+$('#address').val()
+
+제이쿼리에서 밸류값을 가져오는 방법
+
+@RequestParam("address")String address)
+
+그걸 컨트롤러로 불러오는법
+
+
+
+API 활용해서 페이지 만들기
+
+
+
+```java
+	@GetMapping("/getNaver")
+	public ResponseEntity<Map> getNaver(
+			@RequestParam("sentence")String sentence) {
+		RestTemplate rt = new RestTemplate();
+		RequestEntity<Map<String, String>> requestEntity = null;
+		try {
+			Map<String, String> body = new HashMap<>();
+			body.put("source", "ko");
+			body.put("target", "en");
+			body.put("text", sentence);
+			requestEntity = RequestEntity.post(new URI("https://openapi.naver.com/v1/papago/n2mt"))
+					.header("X-Naver-Client-Id", "OpcnSsAIn37qIu6Iyad6").header("X-Naver-Client-Secret", "p7qtbsYx8N")
+					.body(body);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		ResponseEntity<Map> entity = rt.exchange(requestEntity, Map.class);
+		return entity;
+	}
+```
+
+- 리퀘스트 파람을 통해서 html 문서에서 데이터를 가져온다
+
+```java
+	@GetMapping("/naver")
+	public String naver() {
+		return "naver";
+	}
+```
+
+새로운 컨트롤러를 통해 html과 /naver 주소를 연결
+
+```java
+<input type="text" id="sentence">
+<button>번역하기</button>
+<hr>
+<!-- 자바스크립트(jQuery) AJAX 활용 -->
+<<script src = "http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- getNaver 주소를 호출 -->
+<!-- parsing 후 화면에 출력 -->
+<script>
+	$('button').click(function() { //버튼을 클릭하면..
+		$.ajax({
+			url : '/getNaver',
+			type : 'get',
+			data : {'sentence' : $('#sentence').val()},
+			success : function(res){
+				var message = res.message;
+				var result = message.result;
+				var translatedText = result.translatedText;
+				var html = '<h1>' + translatedText + '</h1>';
+				$('hr').after(html);
+			
+				/* console.log(res); */
+			}
+		})
+	});
+
+</script>
+```
+
+- 콘솔로그를 찍는경우 콘솔창에 출력
+- var를 통해 변수 선언하고 제이슨 형태의 값을 발굴한다
+
+
+
+### 프로젝트 생성
+
+흐름을 익히장
+
+1. w3스쿨에서 템플릿 복사
+2. 템플릿에 index.html 만들어서 넣기
+
+3. com.example.board 패키지 내부에 controller패키지를 새로 만들고 HomeController를 만들어 넣는다
+
+```java
+package com.example.board;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BoardApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BoardApplication.class, args);
+	}
+
+}
+```
+
+f11 실행시 BoardApplication에서 한다. 아래꺼 누르면 콘솔창이 컬러풀해진다 ㅎ
+
+![image-20191226162401008](04springboot.assets/image-20191226162401008.png)
+
+
+
+4. template을 분리한다
+
+5. template 아래에 common이라는 패키지를 추가해서 head.html, nav.html, footer.html 을 추가
+
+   ```java
+   <head th:replace="common/head">
+   </head>
+   ```
+
+   - 이런식으로 기존에 있던걸 뜯어내고 html파일들도 각각 옮긴 후 th:replace로 경로 설정
+
+6. 로그인 페이지 만들기
+
+   - signup.html 파일 만들어 BSform 넣기
+
+   디자인 화면을 만든다
+
+7. 컨트롤러를 통해 /signup 페이지와 html파일을 연결
+
+   ```java
+   	@GetMapping({ "/signup" })
+   	public String signup() {
+   		return "signup";
+   	}
+   ```
+
+8. h2데이터베이스 실행하기
+
+   - 스프링 다 끄고 embedded로 먼저 실행
+   - 다시 나가서 server로 실행
+   - 스프링 실행
+
+9. 로그인페이지에서 회원가입
+
+   - 데이터베이스에 데이터가 저장된다
+   - 이때 model패키지 내의 User.java 파일 내의 변수들과 signup.html 내의 클래스 id들과 일치해야 한다
+
+10. 
+
