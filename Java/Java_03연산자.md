@@ -209,3 +209,17 @@ public class self1 {
 
 
 
+myFunc(); function myFunc() {};
+
+myFunc(); var myFunc = function() { return 1 };
+
+var myFunc = function() { return 1 }; myFunc();
+
+myFunc()(); function myFunc() { return function() {} }
+
+[SpringBoot을 이용한 웹 응용 개발]
+웹 API를 이용하여 영상 정보를 출력하는 웹 애플리케이션을 구현하시오.
+\- API url : http://ggoreb.com/m/exam.jsp
+\- 필수 출력 정보 : title, description, thumbnails 하위 width/height
+Front : HTML5, CSS, JavaScript, Bootstrap 등을 이용하여 구현
+Back : String Boot를 이용하여 Controller - View 구현
