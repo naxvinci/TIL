@@ -180,3 +180,42 @@ print(result)
 
 결과는 `[17, 34, 51, 68, 85]`가 출력이 된다
 
+
+
+####  1 ~ 100 사이의 숫자 중 3을 포함하고 있는 숫자와 그 개수를 출력
+
+```python
+count = 0
+# 코드 작성
+# 자료의 내부 값 확인 in 연산자 이용
+for i in range(1,101):
+    if '3' in str(i):
+        print(i)
+        count += 1
+# 숫자를 문자열로 바꾸기 str(숫자) 함수 이용
+print("끝" + str(count) + "개")     
+```
+
+
+
+
+
+
+
+#### 리스트의 각 요소가 3의 배수인지 확인하여 삭제하기
+
+```python
+list1 = [10, 20, 30, 40, 50, 60, 70]
+# 코드 작성
+result=[]
+for i in reversed(range( len(list1))):
+    if list1[i] % 3 == 0:
+            list1.pop(i)
+        
+print(list1)
+
+# remove() 함수를 사용하지 말고 pop() 함수를 이용하여 작성
+```
+
+- len(), reversed() 등 활용
+
