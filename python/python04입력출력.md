@@ -152,3 +152,42 @@ with file:
 - close()가 들어가는 라이브러리들은 거의 이 with 활용이 가능
 
   
+
+### with......... 머냐 어렵다 + 클래스
+
+__ : 더블언더스코어(줄여서 던더스코어)
+
+```python
+class MyFile:
+    def __init__(self):
+        print('생성')
+    def __enter__(self):
+        print('enter')
+    def __exit__(self, type, value, traceback):
+        print('exit')
+```
+
+이렇게 클래스 만들어두면
+
+
+
+```python
+m = MyFile()
+with m:
+    pass
+```
+
+이걸 통해 열고 닫으면
+
+```shell
+생성
+enter
+exit
+```
+
+이렇게 자동으로 호출되면서 출력이 된다
+
+
+
+
+
