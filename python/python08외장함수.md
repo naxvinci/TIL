@@ -30,5 +30,35 @@
 
 
 
+## os
 
+> 몰라 잘 쓸 일 없을 거 같다 ㅜ
+
+#### os.system()
+
+> 그나마 좀 쓰였다.. 중요한 강려크한 기능
+>
+> 아아주 옛날에는 이걸로도 해킹 가능했다~
+
+
+
+## shutil
+
+> 파일을 복사해주는 모듈
+
+#### shutil.copy()
+
+
+
+### glob
+
+> 어떤 디렉토리 내에 다른 디렉토리나 파일들이 뭐 있나
+
+#### glob.glob()
+
+```python
+import glob
+fileList = glob.glob('C:/Users/student/Miniconda3/Lib/*')
+print(fileList)
+```
 
