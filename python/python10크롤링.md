@@ -56,9 +56,25 @@ driver = wd.Chrome(executable_path='chromedriver.exe')
 
 
 
+wait
+
+- 브라우저에 HTML 요소가 보여진 후 코드 실행
+
+  explicit 과 implicit
+
+
+
+셀레니움으로 가져온 문자열을 뷰티풀 숲으로 넘겨주고 파싱을 하는게 일반적이다.
+
 
 
 ![image-20200116142616644](python10크롤링.assets/image-20200116142616644.png)
 
 
+
+화면이 열리는걸 안보이게 하려면 phantomjs를 쓴다
+
+-설치. install
+
+이것 역시 주피터 있는 곳으로 ㄱㄱ
 
