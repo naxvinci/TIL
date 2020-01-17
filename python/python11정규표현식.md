@@ -2,11 +2,11 @@
 
 ### 기호
 
-^ : 시작을 의미
+`^` : 시작을 의미
 
-$: 종료를 의미
+`$`: 종료를 의미
 
-[]: 부정을 의미
+`[]`: 부정을 의미
 
 `+` : 하나 이상 뭐라도 들어와야 한다
 
@@ -47,11 +47,46 @@ $: 종료를 의미
 
 > 그룹되어있는 녀석 형태와 매치하는 모든 문자열을 리스트로 만들어준다
 
-
+- 이름들 찾아내기..!
+- 그룹이 여러개면 어떻게 되려나?
 
 #### finditer()
 
-> 쓰기불편... 매치되는 모든 문자열을 interator객체로 반환
+> 쓰기불편... 매치되는 모든 문자열을 iterator객체로 반환
+
+- 이 자체로 사용하긴 좀 그래...
+
+  ```python
+  import re
+  text = '1번 a@a.com 2번 b@b.org 3번 c@c.net'
+  regex = '\w+@\w+[.](com|net)'
+  pattern = re.compile(regex)
+  it = pattern.finditer(text)
+  for i in it:
+      print(i.group())
+  ```
+
+  - 괄호로 감싸진 녀석들에 한해서 or 연산을 한다는 의미 (finditer()에서만 적용)
 
 
 
+### sub
+
+매칭되는 문자열 바꾸기
+
+- 특정 문자열을 찾은 후 원하는 문자열로 변경 
+- 변경 횟수 지정
+- 지정부분 제외 후 문자열 변경 - 남겨 놓고 싶은 부분 괄호로 감싸준다
+
+```python
+import re
+user_list = ['ggoreb@naver.com', 'seorab@gmail.com', 'human@ggoreb.com']
+regex = '(\w+@)\w+([.]com)'
+pattern = re.compile(regex)
+change = '\g<1>*****\g<2>'
+for user in user_list:
+    res = pattern.sub(change, user)
+    print(res)
+```
+
+- 남겨놓고 싶은 부분 괄호로 감싸준 후 sub(a,b)에서 a부분에 `\g<n>`의 형태로 넣어준다
