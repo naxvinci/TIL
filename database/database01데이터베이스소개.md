@@ -25,3 +25,79 @@ WebServer(대표적으로 Spring)에 접속할 때는 Browser가 필요 한 것 
 우리는 HeidiSQL을 사용할 것이다
 
 Mac OS의 경우 WorkBench 사용..
+
+
+
+
+
+
+
+![image-20200117162219567](database01데이터베이스소개.assets/image-20200117162219567.png)
+
+```powershell
+C:\Users\student>cd /
+
+C:\>cd "Program Files"
+
+C:\Program Files>cd "MariaDB 10.4"
+
+C:\Program Files\MariaDB 10.4>cd bin
+
+C:\Program Files\MariaDB 10.4\bin>mysql -u root -p
+Enter password: ****
+
+```
+
+## Heidi SQL
+
+![image-20200117162942685](database01데이터베이스소개.assets/image-20200117162942685.png)
+
+신규 -저장
+
+데이터베이스 이름은 한글은 쓰지마라..
+
+
+
+## 데이터베이스란
+
+- DBMS (DataBase Management System)
+
+- 여러 사람들이 공유하고 사용할 목적으로 통합 관리되는 정보의 집합
+
+- 엑셀 같은거보다 공유가 용이
+
+- 파일 시스템의 문제 ( 여러사람이 동시에 수정할 수 없다, 삭제수정을 잘못하는 경우 돌이킬 수 없다 등)를 해결하기 위해
+
+- 주요 기능 
+
+  - 정의(DDL) : 데이터베이스 구조를 정의하거나 수정
+
+  - 조작(DML) : 데이터 삽입 / 조회 / 수정 / 삭제 작업
+
+    Create
+
+    Read
+
+    Update
+
+    Delete
+
+  - 제어(DCL) : 데이터를 항상 정확하고 안전하게 유지... 이 부분은 우리는 다루지 않을 것
+
+#### 관계형 DBMS
+
+- 테이블 형태로 구성
+
+
+
+#### 데이터 모델링
+
+- 현실 세계에 존재하는 데이터를 컴퓨터 세계의 데이터베이스로 변환하는 과정
+
+
+
+실행창에서
+
+services.msc 실행하면 서비스 확인할 수 있는 창이 나온다
+
+서비스 끄고 싶으면 m을 눌러 mariaDB를 검색한 후 하면 됨..
