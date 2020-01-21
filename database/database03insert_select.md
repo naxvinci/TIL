@@ -43,7 +43,7 @@ VALUES ('D', 4);
 - `SELECT * FROM 고객;`
 - `DESC 고객;` - 속성 리스트를 확인
 
-### DISTINCT
+### 1. 중복데이터 걸러내기 : DISTINCT
 
 중복데이터를 걸러내고 하나씩 데이터를 출력하려면 DISTINCT를 활용한다
 
@@ -54,7 +54,7 @@ SELECT DISTINCT 제조업체, 제품명 FROM 제품;
 
 
 
-### 속성명 변경 출력 : AS
+### 2. 속성명 변경 출력 : AS
 
 - SELECT 속성명 [AS] 변경속성 FROM 테이블
 - 테이블이 가진 기존 속성명을 지정한 속성명으로 변경하여 출력 가능
@@ -69,7 +69,7 @@ SELECT DISTINCT 제조업체, 제품명 FROM 제품;
 
   
 
-### 산술식 이용하기
+### 3. 산술식 이용하기
 
 - ```mysql
   SELECT 제품명, 단가, 단가+500 AS 조정단가
@@ -81,7 +81,7 @@ SELECT DISTINCT 제조업체, 제품명 FROM 제품;
 
 - ![image-20200120154807424](database03insert_select.assets/image-20200120154807424.png)
 
-### 조건에 해당하는 데이터 검색 : WHERE
+### 4. 조건에 해당하는 데이터 검색 : WHERE
 
 - SELECT [DISTINCT] 속성 리스트 FROM 테이블 리스트 [WHERE 조건];
 - SELECT에는 WHERE이 필수적으로 따라온다고 생각할 정도로 많이 사용
@@ -116,7 +116,7 @@ SELECT * FROM 주문
 
 
 
-### 부분적으로 일치하는 데이터 검색 : LIKE
+### 5. 부분적으로 일치하는 데이터 검색 : LIKE
 
 - 데이터를 검색 할 때 LIKE는 필수다. 이거 안쓰면 정규식의 MATCH와 같은 기능밖에 하지 못한다.
 
@@ -135,7 +135,7 @@ SELECT * FROM 주문
 
 
 
-### NULL 데이터 검색 : IS NULL / IS NOT NULL
+### 6. NULL 데이터 검색 : IS NULL / IS NOT NULL
 
 - NULL은 실행 명령을 자꾸 무시해버리기 때문에 제어해줘야 하는데 이때 `=` 기호를 사용하면 안된다. `IS`를 써야 함.
 
@@ -153,4 +153,38 @@ SELECT * FROM 주문
 
   - 2월 이후 입사 한 사람을 찾기 위해서는 `HIREDATE > '1981-02';`라고 활용도 가능하다
 
-- 
+
+
+### 7. 데이터 검색 후 정렬 : ORDER BY
+
+> SELECT [DISTINCT] 속성 리스트 FROM 테이블 [WHERE 조건] [ORDER BY 속성 리스트 [ASC | DESC]];
+
+- 데이터베이스는 데이터의 순서를 정하지 않는다. 이 때 우리가 원하는 순서로 지정하고 싶을 때 OREDER BY를 활용
+
+- 오름차순 : ASC, 내림차순 : DESC
+
+```mysql
+SELECT 주문고객, 주문제품, 수량, 주문일자
+FROM 주문
+WHERE 수량 >= 10
+ORDER BY 주문제품 ASC, 수량 DESC;
+```
+
+- 오름차순 - 
+
+### 8. 출력 개수 제한 : LIMIT
+
+- ```mysql
+  SELECT * FROM EMP
+  	LIMIT 0, 5; --INDEX 0번 부터 ~ 5개를 출력한다는 의미
+  
+  ```
+
+- SELECT 순서 체크
+
+  ```mysql
+  SELECT * FROM EMP WHERE DEPTNO = 30 ORDER BY SAL DESC LIMIT 0, 5;
+  SELECT * FROM EMP WHERE DEPTNO = 30 ORDER BY SAL DESC LIMIT 5, 5;
+  ```
+
+  

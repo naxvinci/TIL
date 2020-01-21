@@ -12,11 +12,9 @@
 - DML
 - DCL
 
+## DDL
 
-
-### DDL
-
-- 테이블 생성 : `CREATE TABLE [테이블명]`
+### 1. 테이블 생성 : `CREATE TABLE [테이블명]`
 
 - ![image-20200120102957074](database02create_alter.assets/image-20200120102957074.png)
 
@@ -37,7 +35,7 @@
 
 - CTRL +F9
 
-- 테이블 제거: `DROP TABLE`
+### 2. 테이블 제거: `DROP TABLE`
 
 
 
@@ -61,7 +59,8 @@ CONSTRAINT 제약조건명은 숫자로 시작되면안된다
  FOREIGN KEY(소속부서) REFERENCES 부서(부서번호)
 ```
 
-- 테이블 변경 : `ALTER TABLE`
+### 3. 테이블 변경 : `ALTER TABLE`
+
 - ![image-20200120112253198](database02create_alter.assets/image-20200120112253198.png)
 - ![image-20200120112317709](database02create_alter.assets/image-20200120112317709.png)
 
@@ -90,7 +89,7 @@ DESC MEMBER;
 
 
 
-
+### 4. 외래키  설정하기 : REFERENCES
 
 외래키 설정 시 원래 기본키의 크기와 같게 지정해주는 게 좋다
 
@@ -103,7 +102,7 @@ ALTER TABLE 연습
 	REFERENCES 연습1(이메일);
 ```
 
-
+### 5. 제약조건 변경하기
 
 외래키는 변경이 불가능해서 삭제하고 입력해야한다
 
