@@ -209,3 +209,26 @@ url 링크 연결하는 두가지 방식
 
 url.py 통해서 views.py까지.
 
+
+
+csrf -  cross site request forgery
+
+post 방식으로 form 태그 넣어주면 오류
+
+403 - 권한이 없다는 것
+
+ csrf 토큰 코드 넣어주면 된다
+
+
+
+데이터랑 웹 연결과정
+
+```python
+def results(request, question_id): # 투표 결과 페이지
+    question = Question.objects.get(pk=question_id) # models.py에서 이거 자체가 객체로 지정되어 있기 때문에
+    choices = question.choice_set.all()
+    choices = Choice.objects.filter(question=question) # 이건 뭔 방식이지 근데 위와 같은 방식이라고 한다
+
+    return render(request, 'polls/results.html', {'choices': choices})
+```
+
