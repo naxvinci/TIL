@@ -1,0 +1,9 @@
+<!-- post 방식일 때 csrf 기능 적용이 가능하다-->
+<form method = "post" action="{% url 'addvote' %}">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}  
+    <input type="text" name = "addvote" value="{{ question.question_text }}"> <!-- value로서 넘어오는 정보 구분-->
+{% endfor %}
+<br>
+<input type="submit" value="add!">
+</form>

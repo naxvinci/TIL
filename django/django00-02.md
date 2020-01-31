@@ -232,3 +232,14 @@ def results(request, question_id): # 투표 결과 페이지
     return render(request, 'polls/results.html', {'choices': choices})
 ```
 
+
+
+#### css 적용하기
+
+```html
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+```
+
+
+

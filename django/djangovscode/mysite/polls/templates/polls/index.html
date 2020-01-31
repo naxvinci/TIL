@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+{% for question in latest_question_list %}
+    <!-- <a href='/polls/{{question.id}}'> -->
+    <a href='{% url "detail" question.id %}'> <!-- urls.py 내의 name을 통해 접근하는 방식-->
+        <p>{{ question.question_text}}</p>
+    </a>
+{% endfor %}
