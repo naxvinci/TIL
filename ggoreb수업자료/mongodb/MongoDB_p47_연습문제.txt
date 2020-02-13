@@ -1,0 +1,16 @@
+for ( var i = 1; i <= 100; i++) {
+   db.prod.save({
+      name: 'name-' + i,
+      price: 1000 + i,
+      count: i * 10
+   })
+}
+
+/*
+db.prod.find( { $or : [    ] } )
+{ price : { $gte: 1010, $lte: 1020 } }
+{ price : { $gt: 1070, $lt: 1100 } }
+*/
+
+db.prod.find( { $or : [ { price : { $gte: 1010, $lte: 1020 } },  { price : { $gt: 1070, $lt: 1100 } }  ] } )
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+  관리자 이름 :
+  <span th:if="${name} != null" th:text="${name}"></span>
+  <span th:unless="${name} != null" th:text="이름없음"></span>
+  <br>
+  권한 :
+  <span th:text="${auth} != null ? ${auth} : '권한없음'"></span>
+  <br>
+  담당 카테고리 :
+  <span th:switch="${category}">
+    <span th:case="1">커뮤니티</span>
+    <span th:case="2">장터</span>
+    <span th:case="3">갤러리</span>
+  </span>
+  <br>
+</body>
+</html>

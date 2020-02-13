@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <table border="1">
+    <tr>
+      <td>아이디</td>
+      <td>이름</td>
+      <td>나이</td>
+    </tr>
+    <tr th:each="user : ${userList}">
+      <td th:text="${user.userId}"></td>
+      <td th:text="${user.userName}"></td>
+      <td th:text="${user.userAge}"></td>
+    </tr>
+  </table>
+  <hr>
+  <th:block th:each="pageNumber : ${#numbers.sequence(1, 10)}">
+    <span th:text="${pageNumber}"></span>
+  </th:block>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <th:block th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+    <span th:if="${page} == ${pageNumber}" th:text="${pageNumber}" style="font-weight: bold"></span>
+    <span th:unless="${page} == ${pageNumber}" th:text="${pageNumber}"></span>
+  </th:block>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <p th:if="${session.user} != null" th:text="${session.user.userId} + ' 님 반갑습니다.'"></p>
+  <p th:unless="${session.user} != null">로그인되어 있지 않습니다.</p>
+</body>
+</html>
