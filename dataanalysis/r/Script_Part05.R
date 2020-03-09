@@ -65,6 +65,7 @@ colnames(df_new)<-c("var1", "var2")
 df <- data.frame(var1 = c(4, 3, 8),
                  var2 = c(2, 6, 1))
 df
+df[3] <- df$var1 + df$var2       # var_sum 파생변수 생성
 
 df$var_sum <- df$var1 + df$var2       # var_sum 파생변수 생성
 df
@@ -82,7 +83,7 @@ mean(mpg$total)  # 통합 연비 변수 평균
 
 ## -------------------------------------------------------------------- ##
 summary(mpg$total)  # 요약 통계량 산출
-h<- hist(mpg$total)     # 히스토그램 생성 - 데이터가 있음.
+h<- hist(mpg$total,20)     # 히스토그램 생성 - 데이터가 있음.
 
 qplot(total, data=mpg)
 str(h)
@@ -129,7 +130,7 @@ mpg$grade <- ifelse(mpg$total >= 30, "A",
 head(mpg, 20)     # 데이터 확인
 
 table(mpg$grade)  # 등급 빈도표 생성
-qplot(mpg$grade)  # 등급 빈도 막대 그래프 생성
+qplot(mpg$grade2)  # 등급 빈도 막대 그래프 생성
 
 table(mpg$test, mpg$grade)
 

@@ -17,7 +17,7 @@ df_midterm["math"]
 df_midterm$math # df_midterm.math
 df_midterm[1:2]
 ## - 행, 열 구분없이 색인하면, 열을 가져온다.
-## - 모든 것을 선택하느데, :를 사용해서는 않된다.
+## - 모든 것을 선택하는데, :를 사용해서는 안된다.
 ## - 연속색인에서 끝 첨자를 포함한다.
 
 class <- c(1, 1, 2, 2)
@@ -115,6 +115,7 @@ df_exam[c("math", "science")]
 df_exam[c(3,5)]
 df_exam[,c("math", "science")]
 df_exam[,c(3,5)]
+df_exam[c(1,2),]
 
 # 2. math, english, science의 점수 합을 값으로 갖는 sum이라는 열을 생성하라.
 df_exam['sum'] <- df_exam$math + df_exam$english + df_exam$science
