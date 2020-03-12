@@ -5,6 +5,10 @@
 install.packages("rJava")
 install.packages("memoise")
 install.packages("KoNLP")
+install.packages("remotes")
+install.packages("RColorBrewer")
+# 64bit 에서만 동작합니다.
+remotes::install_github('haven-jeon/KoNLP', upgrade = "never", INSTALL_opts=c("--no-multiarch"))
 
 # 패키지 로드
 library(KoNLP)
