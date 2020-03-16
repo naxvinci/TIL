@@ -16,6 +16,7 @@ exam[exam$class==1,]
 # 2반인 경우만 추출
 exam %>% filter(class == 2) # row index 초기화
 exam[exam$class==2,]        # row index 보존.
+length(exam)
 
 # 1반이 아닌 경우
 exam %>% filter(class != 1)
